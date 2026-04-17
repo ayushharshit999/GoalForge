@@ -9,10 +9,7 @@ class GoalProgressWidget extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            const Color(0xFF1B4332),
-            const Color(0xFF2D5A3D),
-          ],
+          colors: [const Color(0xFF1B4332), const Color(0xFF2D5A3D)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -133,11 +130,7 @@ class GoalProgressWidget extends StatelessWidget {
   Widget _buildStatItem(String value, String label, IconData icon) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: const Color(0xFF81C784),
-          size: 16,
-        ),
+        Icon(icon, color: const Color(0xFF81C784), size: 16),
         const SizedBox(width: 6),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

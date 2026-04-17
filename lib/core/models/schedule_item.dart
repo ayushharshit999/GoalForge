@@ -1,5 +1,5 @@
 class ScheduleItem {
-  final DateTime time;
+  final String time;
   final String title;
   final String description;
 

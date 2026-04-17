@@ -1,36 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../../core/providers/home_provider.dart';
+import '../../../../core/models/task.dart';
 
-class PrioritiesWidget extends StatefulWidget {
+class PrioritiesWidget extends StatelessWidget {
   const PrioritiesWidget({super.key});
 
   @override
-  State<PrioritiesWidget> createState() => _PrioritiesWidgetState();
-}
-
-class _PrioritiesWidgetState extends State<PrioritiesWidget> {
-  final List<PriorityItem> priorities = [
-    PriorityItem(
-      title: 'Complete UI Design',
-      description: 'Finalize dashboard mockups',
-      isCompleted: true,
-      priority: Priority.high,
-    ),
-    PriorityItem(
-      title: 'Review Code Changes',
-      description: 'Check pull requests',
-      isCompleted: false,
-      priority: Priority.medium,
-    ),
-    PriorityItem(
-      title: 'Team Meeting',
-      description: 'Sprint planning at 2 PM',
-      isCompleted: false,
-      priority: Priority.high,
-    ),
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final homeProvider = Provider.of<HomeProvider>(context);
+    final tasks = homeProvider.tasks.take(3).toList(); // Show top 3 tasks as priorities
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -69,12 +49,12 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
             ],
           ),
           const SizedBox(height: 16),
-          ...priorities.asMap().entries.map((entry) {
+          ...tasks.asMap().entries.map((entry) {
             final index = entry.key;
-            final priority = entry.value;
+            final task = entry.value;
             return Padding(
-              padding: EdgeInsets.only(bottom: index < priorities.length - 1 ? 12 : 0),
-              child: _buildPriorityItem(priority),
+              padding: EdgeInsets.only(bottom: index < tasks.length - 1 ? 12 : 0),
+              child: _buildPriorityItem(task, index, homeProvider),
             );
           }),
         ],
@@ -82,14 +62,14 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
     );
   }
 
-  Widget _buildPriorityItem(PriorityItem priority) {
+  Widget _buildPriorityItem(Task task, int index, HomeProvider homeProvider) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: const Color(0xFF0D1F0D),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: priority.isCompleted 
+          color: task.isCompleted 
               ? const Color(0xFF4CAF50).withValues(alpha: 0.3)
               : const Color(0xFF4CAF50).withValues(alpha: 0.1),
         ),
@@ -98,9 +78,7 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
         children: [
           GestureDetector(
             onTap: () {
-              setState(() {
-                priority.isCompleted = !priority.isCompleted;
-              });
+              homeProvider.toggleTaskCompletion(index);
             },
             child: Container(
               width: 20,
@@ -108,16 +86,16 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: priority.isCompleted 
+                  color: task.isCompleted 
                       ? const Color(0xFF4CAF50)
                       : const Color(0xFF81C784),
                   width: 2,
                 ),
-                color: priority.isCompleted 
+                color: task.isCompleted 
                     ? const Color(0xFF4CAF50)
                     : Colors.transparent,
               ),
-              child: priority.isCompleted
+              child: task.isCompleted
                   ? const Icon(
                       Icons.check,
                       color: Colors.white,
@@ -134,14 +112,14 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
                 Row(
                   children: [
                     Text(
-                      priority.title,
+                      task.title,
                       style: TextStyle(
-                        color: priority.isCompleted 
+                        color: task.isCompleted 
                             ? const Color(0xFF81C784)
                             : Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        decoration: priority.isCompleted 
+                        decoration: task.isCompleted 
                             ? TextDecoration.lineThrough
                             : null,
                       ),
@@ -150,11 +128,11 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: _getPriorityColor(priority.priority),
+                        color: _getPriorityColor(index),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        priority.priority.name.toUpperCase(),
+                        _getPriorityLabel(index),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 9,
@@ -166,7 +144,7 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  priority.description,
+                  'Priority task ${index + 1}',
                   style: TextStyle(
                     color: const Color(0xFF81C784).withValues(alpha: 0.8),
                     fontSize: 12,
@@ -181,30 +159,29 @@ class _PrioritiesWidgetState extends State<PrioritiesWidget> {
     );
   }
 
-  Color _getPriorityColor(Priority priority) {
-    switch (priority) {
-      case Priority.high:
+  Color _getPriorityColor(int index) {
+    switch (index) {
+      case 0:
+        return const Color(0xFFE53935); // HIGH
+      case 1:
+        return const Color(0xFFFB8C00); // MEDIUM
+      case 2:
+        return const Color(0xFF4CAF50); // LOW
+      default:
         return const Color(0xFFE53935);
-      case Priority.medium:
-        return const Color(0xFFFB8C00);
-      case Priority.low:
-        return const Color(0xFF4CAF50);
+    }
+  }
+
+  String _getPriorityLabel(int index) {
+    switch (index) {
+      case 0:
+        return 'HIGH';
+      case 1:
+        return 'MEDIUM';
+      case 2:
+        return 'LOW';
+      default:
+        return 'HIGH';
     }
   }
 }
-
-class PriorityItem {
-  final String title;
-  final String description;
-  final Priority priority;
-  bool isCompleted;
-
-  PriorityItem({
-    required this.title,
-    required this.description,
-    required this.priority,
-    required this.isCompleted,
-  });
-}
-
-enum Priority { high, medium, low }

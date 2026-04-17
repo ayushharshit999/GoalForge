@@ -1,17 +1,9 @@
-import 'plan.dart';
-
 class Goal {
-  final String id;
   final String title;
-  final String category; // Health, Career, etc.
-  final int dailyCommitmentMinutes;
-  final Plan? plan;
+  final double progress; // 0.0 to 1.0
 
   Goal({
-    required this.id,
     required this.title,
-    required this.category,
-    required this.dailyCommitmentMinutes,
-    this.plan,
+    required this.progress,
   });
 }

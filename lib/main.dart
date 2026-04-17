@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'features/auth/auth_wrapper.dart';
+import 'core/providers/home_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,14 +17,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GoalForge',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (context) => HomeProvider(),
+      child: MaterialApp(
+        title: 'GoalForge',
+        theme: ThemeData(
+          colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const AuthWrapper(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const AuthWrapper(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
