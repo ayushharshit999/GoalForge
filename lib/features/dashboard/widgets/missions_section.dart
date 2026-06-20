@@ -37,12 +37,22 @@ class MissionsSection extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildMissionItem('Complete ML lecture'),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: _buildMissionItem('Complete ML lecture'),
+            ),
             const SizedBox(height: 16),
-            _buildMissionItem('Gym workout'),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: _buildMissionItem('Gym workout'),
+            ),
             const SizedBox(height: 16),
-            _buildMissionItem('Solve 20 questions'),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: _buildMissionItem('Solve 20 questions'),
+            ),
           ],
         ),
       ],
