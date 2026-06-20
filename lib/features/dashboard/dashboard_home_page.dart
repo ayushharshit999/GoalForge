@@ -6,7 +6,6 @@ import 'widgets/ai_coach_insight.dart';
 import 'widgets/next_focus_session.dart';
 import 'widgets/missions_section.dart';
 import 'widgets/decorative_progress_visual.dart';
-import 'widgets/bottom_navbar.dart';
 
 class DashboardHomePage extends StatelessWidget {
   const DashboardHomePage({super.key});
@@ -33,12 +32,6 @@ class DashboardHomePage extends StatelessWidget {
             ),
           ),
           _buildTopAppBar(),
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: BottomNavbar(),
-          ),
         ],
       ),
     );
@@ -55,10 +48,7 @@ class DashboardHomePage extends StatelessWidget {
         decoration: BoxDecoration(
           color: DashboardTheme.surface.withValues(alpha: 0.1),
           border: Border(
-            bottom: BorderSide(
-              color: DashboardTheme.glassBorder,
-              width: 1,
-            ),
+            bottom: BorderSide(color: DashboardTheme.glassBorder, width: 1),
           ),
         ),
         child: Row(
@@ -66,14 +56,11 @@ class DashboardHomePage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.bolt,
-                  color: DashboardTheme.primary,
-                  size: 32,
-                ),
+                Icon(Icons.bolt, color: DashboardTheme.primary, size: 32),
                 const SizedBox(width: 8),
                 ShaderMask(
-                  shaderCallback: (bounds) => DashboardTheme.primaryGradient.createShader(bounds),
+                  shaderCallback: (bounds) =>
+                      DashboardTheme.primaryGradient.createShader(bounds),
                   child: const Text(
                     'GOALFORGE',
                     style: TextStyle(
@@ -87,11 +74,7 @@ class DashboardHomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(
-              Icons.notifications,
-              color: DashboardTheme.primary,
-              size: 24,
-            ),
+            Icon(Icons.notifications, color: DashboardTheme.primary, size: 24),
           ],
         ),
       ),
@@ -138,10 +121,7 @@ class DashboardHomePage extends StatelessWidget {
                 flex: 7,
                 child: GlassCard(
                   child: const Center(
-                    child: WeeklyProgressRing(
-                      progress: 0.72,
-                      size: 320,
-                    ),
+                    child: WeeklyProgressRing(progress: 0.72, size: 320),
                   ),
                 ),
               ),
@@ -163,10 +143,7 @@ class DashboardHomePage extends StatelessWidget {
             children: [
               GlassCard(
                 child: const Center(
-                  child: WeeklyProgressRing(
-                    progress: 0.72,
-                    size: 280,
-                  ),
+                  child: WeeklyProgressRing(progress: 0.72, size: 280),
                 ),
               ),
               const SizedBox(height: 24),

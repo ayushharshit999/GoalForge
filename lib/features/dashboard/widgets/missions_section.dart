@@ -10,22 +10,22 @@ class MissionsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "TODAY'S MISSIONS",
-              style: TextStyle(
+              style: const TextStyle(
                 color: DashboardTheme.onSurface,
-                fontSize: 32,
+                fontSize: 24,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Sora',
                 letterSpacing: -0.01,
               ),
             ),
-            const Text(
+            Text(
               '3 TASKS REMAINING',
-              style: TextStyle(
+              style: const TextStyle(
                 color: DashboardTheme.outline,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
