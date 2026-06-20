@@ -51,10 +51,9 @@ class _FocusScreenState extends State<FocusScreen>
               children: [
                 _buildTopAppBar(),
                 Expanded(
-                  child: Padding(
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SizedBox(height: 32),
                         _buildHeaderSection(),
@@ -244,10 +243,7 @@ class _FocusScreenState extends State<FocusScreen>
             const SizedBox(width: 8),
             const Text(
               'Current Streak: 6 days',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFFCBC3D7),
-              ),
+              style: TextStyle(fontSize: 14, color: Color(0xFFCBC3D7)),
             ),
           ],
         ),
@@ -299,9 +295,9 @@ class _FocusScreenState extends State<FocusScreen>
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFD0BCFF).withValues(
-                      alpha: 0.2 + _pulseController.value * 0.1,
-                    ),
+                    color: const Color(
+                      0xFFD0BCFF,
+                    ).withValues(alpha: 0.2 + _pulseController.value * 0.1),
                     blurRadius: 40,
                   ),
                 ],
@@ -358,10 +354,7 @@ class _FocusScreenState extends State<FocusScreen>
                 const SizedBox(width: 8),
                 const Text(
                   'Deep focus detected. Optimal state.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFFE5E2E3),
-                  ),
+                  style: TextStyle(fontSize: 12, color: Color(0xFFE5E2E3)),
                 ),
               ],
             ),
@@ -504,10 +497,7 @@ class _FocusScreenState extends State<FocusScreen>
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right,
-                color: Color(0xFFCBC3D7),
-              ),
+              const Icon(Icons.chevron_right, color: Color(0xFFCBC3D7)),
             ],
           ),
         ),
@@ -538,10 +528,7 @@ class _TimerRingPainter extends CustomPainter {
     final gradient = SweepGradient(
       startAngle: -math.pi / 2,
       endAngle: -math.pi / 2 + 2 * math.pi * progress,
-      colors: [
-        const Color(0xFFD0BCFF),
-        const Color(0xFF89CEFF),
-      ],
+      colors: [const Color(0xFFD0BCFF), const Color(0xFF89CEFF)],
     );
 
     final progressPaint = Paint()
